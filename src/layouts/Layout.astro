@@ -18,8 +18,8 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
-		<CloseBar />
+	<body class="rounded-lg">
+		<CloseBar title={title} />
 		<slot />
 	</body>
 </html>
@@ -39,6 +39,7 @@ const { title } = Astro.props;
 		font-family: system-ui, sans-serif;
 		background: #13151a;
 		background-size: 224px;
+		border-radius: 12%;
 	}
 	code {
 		font-family:

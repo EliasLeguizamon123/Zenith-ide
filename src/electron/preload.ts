@@ -1,2 +1,9 @@
-// src/electron/preload.ts
-console.log("preload.ts");
+import { contextBridge, ipcRenderer } from "electron";
+
+const api = {
+    closeApp: () => ipcRenderer.send('closeApp'),
+}
+
+contextBridge.exposeInMainWorld('api', api);
+
+contextBridge.exposeInMainWorld('ipcRenderer', ipcRenderer);

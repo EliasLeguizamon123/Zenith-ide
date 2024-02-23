@@ -2,6 +2,7 @@
   "name": "zenith",
   "version": "0.0.1",
   "main": "dist-electron/main.js",
+  "author": "Elias Leguizamon",
   "dependencies": {
     "@astrojs/check": "^0.5.5",
     "@astrojs/tailwind": "^5.1.0",

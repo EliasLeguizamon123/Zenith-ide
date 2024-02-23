@@ -5,6 +5,7 @@ import { app, BrowserWindow } from "electron";
 app.whenReady().then(() => {
   const win = new BrowserWindow({
     title: "Main window",
+    frame: false,
     webPreferences: {
       preload: url.fileURLToPath(new URL("preload.mjs", import.meta.url)),
     },

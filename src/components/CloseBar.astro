@@ -1,26 +1,25 @@
 ---
 interface props {
     title: string;
+    isFullScreen: boolean;
 }
 
-const {title} = Astro.props
-
-async function handleCloseApp () {
-    console.log('entro')
-    await window.api.closeWindow()
-}
+const {title, isFullScreen} = Astro.props
 ---
 
 <header id="close-bar" class="flex width-full text-white justify-end">
     <h1 class="flex-1 text-center text-lg italic">{title}</h1>
     <div class="flex absolute">
-        <button class="w-8 h-8 cursor-pointer flex justify-center items-center hover:bg-gray-500">
+        <button id="minimizeButton" class="w-8 h-8 cursor-pointer flex justify-center items-center hover:bg-gray-500">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-minus" width="15" height="15" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /></svg>
         </button>
-        <button class="w-8 h-8 cursor-pointer flex justify-center items-center hover:bg-gray-500">
+        <button id="fullScreenButton" class="w-8 h-8 cursor-pointer flex justify-center items-center hover:bg-gray-500">
+            {isFullScreen ? null : 
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square" width="12" height="12" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /></svg>
+            } 
         </button> 
-        <button class="group w-8 h-8 cursor-pointer flex justify-center items-center hover:bg-red-500" >
+        <button id="closeButton" class="group w-8 h-8 cursor-pointer flex justify-center items-center hover:bg-red-500" >
             <svg class="group-hover:animate-bounce" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="17" height="17" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
         </button>
     </div>
@@ -34,9 +33,23 @@ async function handleCloseApp () {
         -webkit-app-region: no-drag;
     }
 </style>
+
 <script>
-    async function handleCloseApp () {
-        console.log('entro')
-        await window.api.closeWindow()
-    }
+   const closeButton = document.getElementById('closeButton') as HTMLButtonElement;
+
+   closeButton.addEventListener('click', async() => {
+         await window.api.closeApp()
+   })
+
+   const minimizeButton = document.getElementById('minimizeButton') as HTMLButtonElement;
+
+    minimizeButton.addEventListener('click', async() => {
+            await window.api.minimizeApp()
+    })
+
+    const fullScreenButton = document.getElementById('fullScreenButton') as HTMLButtonElement;
+
+    fullScreenButton.addEventListener('click', async() => {
+            await window.api.setFullScreen()
+    })
 </script>

@@ -2,8 +2,10 @@
 import * as url from "url";
 import { app, BrowserWindow, ipcMain } from "electron";
 
+let win: BrowserWindow; 
+
 app.whenReady().then(() => {
-  const win = new BrowserWindow({
+   win = new BrowserWindow({
     title: "Main window",
     frame: false,
     transparent: true,
@@ -31,5 +33,9 @@ ipcMain.on("closeApp", () => {
 });
 
 ipcMain.on("minimizeApp", () => {
-  app.hide();
+  win.hide();
 });
+
+ipcMain.on('setFullScreen', () => {
+  win.setFullScreen(!win.isFullScreen());
+})

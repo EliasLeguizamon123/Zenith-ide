@@ -6,5 +6,6 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [electron(), tailwind(), icon()]
+  integrations: [electron(), tailwind(), icon()],
+  output: 'hybrid'
 });

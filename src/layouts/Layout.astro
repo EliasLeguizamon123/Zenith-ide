@@ -19,7 +19,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body class="rounded-lg">
-		<CloseBar title={title} />
+		<CloseBar title={title} isFullScreen={false} />
 		<slot />
 	</body>
 </html>
@@ -40,16 +40,5 @@ const { title } = Astro.props;
 		background: #13151a;
 		background-size: 224px;
 		border-radius: 12%;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
 	}
 </style>

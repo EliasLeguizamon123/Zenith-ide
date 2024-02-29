@@ -1,8 +1,7 @@
 import * as url from "url";
 import { app, BrowserWindow, ipcMain } from "electron";
-let win;
 app.whenReady().then(() => {
-  win = new BrowserWindow({
+  const win = new BrowserWindow({
     title: "Main window",
     frame: false,
     transparent: true,
@@ -20,13 +19,13 @@ app.whenReady().then(() => {
   } else {
     win.loadFile("dist/index.html");
   }
-});
-ipcMain.on("closeApp", () => {
-  app.quit();
-});
-ipcMain.on("minimizeApp", () => {
-  win.hide();
-});
-ipcMain.on("setFullScreen", () => {
-  win.setFullScreen(!win.isFullScreen());
+  ipcMain.on("closeApp", () => {
+    app.quit();
+  });
+  ipcMain.on("minimizeApp", () => {
+    win.minimize();
+  });
+  ipcMain.on("setFullScreen", () => {
+    win.setFullScreen(!win.isFullScreen());
+  });
 });

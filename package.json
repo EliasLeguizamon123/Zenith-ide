@@ -14,7 +14,7 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "ELECTRON_DISABLE_SECURITY_WARNINGS=true astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"

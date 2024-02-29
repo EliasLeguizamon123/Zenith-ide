@@ -16,6 +16,8 @@ export const $content = atom('');
     import JsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
     import CssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
     import HtmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
+    const editor = document.getElementById('editor');
+
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -29,33 +31,35 @@ export const $content = atom('');
         }
     }
 
-    monaco.editor.create(document.getElementById('editor'), {
+    if(editor){
+        monaco.editor?.create(editor, {
         value: '',
 	    language: 'javascript'
-    })
+        })
 
-    monaco.editor.defineTheme('cat', {
-        base: 'vs-dark',
-        inherit: true,
-        rules: {
-            foreground: '#cad3f5',
-            fontStyle: 'italic',
-            token: 'identifier'
-        }, 
-        colors: {
-            "editor.background": "#24273a",
-            "editor.foreground": "#cad3f5",
-            "editorCursor.foreground": "#a6da95",
-            "editor.lineHighlightBackground": "#363a4f",
-            "editorLineNumber.foreground": "#a5adcb",
-            "editor.selectionBackground": "#ee99a0",
-            "editor.inactiveSelectionBackground": "#ee99a0",
-            "editorIndentGuide.background": "#6e738d",
-            "editorIndentGuide.activeBackground": "#6e738d",
-            "editorWhitespace.foreground": "#6e738d",
-            "editor.textEditorCursorStyle": "block",
-        }
-    })
+        monaco.editor.defineTheme('cat', {
+            base: 'vs-dark',
+            inherit: true,
+            rules: {
+                foreground: '#cad3f5',
+                fontStyle: 'italic',
+                token: 'identifier'
+            }, 
+            colors: {
+                "editor.background": "#24273a",
+                "editor.foreground": "#cad3f5",
+                "editorCursor.foreground": "#a6da95",
+                "editor.lineHighlightBackground": "#363a4f",
+                "editorLineNumber.foreground": "#a5adcb",
+                "editor.selectionBackground": "#ee99a0",
+                "editor.inactiveSelectionBackground": "#ee99a0",
+                "editorIndentGuide.background": "#6e738d",
+                "editorIndentGuide.activeBackground": "#6e738d",
+                "editorWhitespace.foreground": "#6e738d",
+                "editor.textEditorCursorStyle": "block",
+            }
+        })
 
-    monaco.editor.setTheme('cat')
+        monaco.editor.setTheme('cat')
+    }
 </script>

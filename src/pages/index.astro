@@ -4,7 +4,7 @@ import HomeSection from '../components/HomeSection.astro'
 import TextEditorSection from '../components/TextEditorSection.astro'
 import { atom } from 'nanostores'
 
-export const $isFileLoaded  = atom(true);
+export const $isFileLoaded  = atom(false);
 
 console.log($isFileLoaded.get())
 ---

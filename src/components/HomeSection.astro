@@ -1,5 +1,5 @@
 ---
-import MountainLogo from "./MountainLogo.astro"
+
 ---
 
 <main class="text-center text-text h-full flex content-center justify-center flex-col flex-wrap">
@@ -9,3 +9,18 @@ import MountainLogo from "./MountainLogo.astro"
         </span>
     </h1>
 </main>
+
+<script>
+    import { $isFileLoaded } from "../pages/index.astro";
+    
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const listener = $isFileLoaded.subscribe((value) => {
+                $isFileLoaded.set(!value);
+            })
+
+            $isFileLoaded.listen(listener)
+        }
+    });
+
+</script>

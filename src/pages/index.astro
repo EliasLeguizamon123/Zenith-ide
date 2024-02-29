@@ -1,8 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HomeSection from '../components/HomeSection.astro'
+import { atom } from 'nanostores'
+
+export const $isFileLoaded  = atom(false);
+
+console.log($isFileLoaded.get())
 ---
 
 <Layout title="Zenith">
-	<HomeSection />
+	{!$isFileLoaded.get() ? <HomeSection /> : <div>loading...</div> }
 </Layout>

@@ -1,0 +1,61 @@
+---
+import { atom } from 'nanostores'
+
+export const $content = atom('');
+---
+<div id="editor"  class="w-full h-full overflow-hidden bg-base" />
+<script>
+    import * as monaco from 'monaco-editor';
+    import 'monaco-editor/esm/vs/basic-languages/css/css.contribution'
+    import 'monaco-editor/esm/vs/basic-languages/xml/xml.contribution'
+    import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution'
+
+
+    import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
+    import TsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
+    import JsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
+    import CssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker'
+    import HtmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.MonacoEnvironment = {
+        getWorker (_: string, label: string) {
+            if (label === 'typescript' || label === 'javascript') return new TsWorker()
+            if (label === 'json') return new JsonWorker()
+            if (label === 'css') return new CssWorker()
+            if (label === 'html') return new HtmlWorker()
+            return new EditorWorker()
+        }
+    }
+
+    monaco.editor.create(document.getElementById('editor'), {
+        value: '',
+	    language: 'javascript'
+    })
+
+    monaco.editor.defineTheme('cat', {
+        base: 'vs-dark',
+        inherit: true,
+        rules: {
+            foreground: '#cad3f5',
+            fontStyle: 'italic',
+            token: 'identifier'
+        }, 
+        colors: {
+            "editor.background": "#24273a",
+            "editor.foreground": "#cad3f5",
+            "editorCursor.foreground": "#a6da95",
+            "editor.lineHighlightBackground": "#363a4f",
+            "editorLineNumber.foreground": "#a5adcb",
+            "editor.selectionBackground": "#ee99a0",
+            "editor.inactiveSelectionBackground": "#ee99a0",
+            "editorIndentGuide.background": "#6e738d",
+            "editorIndentGuide.activeBackground": "#6e738d",
+            "editorWhitespace.foreground": "#6e738d",
+            "editor.textEditorCursorStyle": "block",
+        }
+    })
+
+    monaco.editor.setTheme('cat')
+</script>

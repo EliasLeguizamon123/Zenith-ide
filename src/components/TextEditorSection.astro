@@ -3,7 +3,8 @@ import { atom } from 'nanostores'
 
 export const $content = atom('');
 ---
-<div id="editor"  class="w-full h-full bg-base" />
+<div id="editor"  class="hidden w-full h-full bg-base" />
+
 <script>
     import { isFileOpen } from '../stores/fileStore'
     import * as monaco from 'monaco-editor';
@@ -38,7 +39,9 @@ export const $content = atom('');
 
             monaco.editor?.create(editor, {
                 value: '',
-                language: 'javascript'
+                language: 'javascript',
+                cursorStyle: 'block',
+                cursorBlinking: 'smooth',
             })
 
             monaco.editor.defineTheme('cat', {
@@ -56,11 +59,15 @@ export const $content = atom('');
                     "editorIndentGuide.background": "#6e738d",
                     "editorIndentGuide.activeBackground": "#6e738d",
                     "editorWhitespace.foreground": "#6e738d",
-                    "editor.textEditorCursorStyle": "block",
                 }
             })
 
             monaco.editor.setTheme('cat')
+            setTimeout(() => {
+                if (editor) {
+                    editor.focus();
+                }
+            }, 1000);
         } else {
             monaco.editor.getModels().forEach(model => model.dispose());
         }

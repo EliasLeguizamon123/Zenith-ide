@@ -1,30 +1,23 @@
-import * as url from "url";
-import { app, BrowserWindow, ipcMain } from "electron";
-app.whenReady().then(() => {
-  const win = new BrowserWindow({
+import * as t from "url";
+import { app as i, BrowserWindow as o, ipcMain as n } from "electron";
+i.whenReady().then(() => {
+  const e = new o({
     title: "Main window",
-    frame: false,
-    transparent: true,
+    frame: !1,
+    transparent: !0,
     minHeight: 600,
     minWidth: 800,
     webPreferences: {
-      preload: url.fileURLToPath(new URL("preload.mjs", import.meta.url)),
-      nodeIntegration: true,
-      contextIsolation: true
+      preload: t.fileURLToPath(new URL("preload.mjs", import.meta.url)),
+      nodeIntegration: !0,
+      contextIsolation: !0
     }
   });
-  if (process.env.VITE_DEV_SERVER_URL) {
-    win.loadURL(process.env.VITE_DEV_SERVER_URL);
-  } else {
-    win.loadFile("dist/index.html");
-  }
-  ipcMain.on("closeApp", () => {
-    app.quit();
-  });
-  ipcMain.on("minimizeApp", () => {
-    win.minimize();
-  });
-  ipcMain.on("setFullScreen", () => {
-    win.setFullScreen(!win.isFullScreen());
+  process.env.VITE_DEV_SERVER_URL ? e.loadURL(process.env.VITE_DEV_SERVER_URL) : e.loadFile("dist/index.html"), n.on("closeApp", () => {
+    i.quit();
+  }), n.on("minimizeApp", () => {
+    e.minimize();
+  }), n.on("setFullScreen", () => {
+    e.setFullScreen(!e.isFullScreen());
   });
 });

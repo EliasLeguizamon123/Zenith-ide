@@ -1,6 +1,9 @@
 # build output
 dist/
 dist-electron/
+release/
+bun.*
+yarn.lock
 
 # generated types
 .astro/

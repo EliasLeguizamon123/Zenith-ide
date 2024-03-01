@@ -1,0 +1,32 @@
+{
+    appId: 'com.zenith.ide',
+    productName: 'Zenith',
+    copyright: "Copyright © 2024 ${author}",
+    asar: true,
+    directories: {
+        output: 'release/${version}',
+        buildResources: 'dist-electron'
+    },
+    files: ["dist-electron", "package.json"],
+    win: {
+        target: [
+            {
+                target: 'nsis',
+                arch: ['x64']
+            }
+        ],
+        artifactName: "${productName}-setup-${version}.${ext}",
+    },
+    nsis: {
+        allowToChangeInstallationDirectory: true,
+        oneClick: false,
+    },
+    mac: {
+        target: ["dmg"],
+        artifactName: "${productName}-setup-${version}.${ext}",
+    },
+    linux: {
+        target: ["AppImage"],
+        artifactName: "${productName}-setup-${version}.${ext}",
+    }
+}

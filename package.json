@@ -9,7 +9,6 @@
     "astro": "^4.4.3",
     "astro-electron": "^0.3.1",
     "astro-icon": "^1.1.0",
-    "electron": "^29.0.1",
     "monaco-editor": "^0.46.0",
     "nanostores": "^0.10.0",
     "tailwindcss": "^3.4.1",
@@ -17,9 +16,18 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && electron-builder",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "build:win": "astro build && electron-builder -w",
+    "build:mac": "astro build && electron-builder -m",
+    "build:gnu": "astro build && electron-builder -l"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "electron-builder": "^24.12.0",
+    "electron": "^29.0.1"
+  }
 }

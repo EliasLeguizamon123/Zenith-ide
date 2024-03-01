@@ -2,14 +2,15 @@
 import CodeText  from './CodeText.astro'
 ---
 
-<main id="home" class="text-center text-text h-full flex content-center justify-center flex-col flex-wrap">
+<main id="home" class="text-center text-text h-[94vh] flex content-center justify-center flex-col flex-wrap">
     <h1 class="text-5xl pb-4">Welcome to 
         <span class="inline-flex animate-text-gradient bg-gradient-to-r from-flamingo via-maroon to-text bg-[200%_auto] bg-clip-text text-transparent">
             Zenith
         </span>
     </h1>
-    
-    <p class="cursor-default pb-4">To start with new file just press <CodeText>ctrl</CodeText> + <CodeText>n</CodeText></p>
-    <p class="cursor-default pb-4">For open existing file just press <CodeText>ctrl</CodeText> + <CodeText>o</CodeText></p>
-    <p class="cursor-default pb-4">For open main menu just press <CodeText>ctrl</CodeText> + <CodeText>k</CodeText></p>
+    <div class="text-center select-none">
+        <p class="cursor-default">To start with new file just press <CodeText>ctrl</CodeText> + <CodeText>n</CodeText></p>
+        <p class="cursor-default">To open existing file just press <CodeText>ctrl</CodeText> + <CodeText>o</CodeText></p>
+        <p class="cursor-default">To show all shortcuts just press <CodeText>ctrl</CodeText> + <CodeText>k</CodeText></p>
+    </div>
 </main>

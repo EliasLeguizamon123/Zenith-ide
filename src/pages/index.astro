@@ -2,13 +2,33 @@
 import Layout from '../layouts/Layout.astro';
 import HomeSection from '../components/HomeSection.astro'
 import TextEditorSection from '../components/TextEditorSection.astro'
-import { atom } from 'nanostores'
 
-export const $isFileLoaded  = atom(false);
-
-console.log($isFileLoaded.get())
 ---
 
 <Layout title="Zenith">
-	{!$isFileLoaded.get() ? <HomeSection /> : <TextEditorSection />}
+		<HomeSection />
+		<TextEditorSection />
 </Layout>
+<script>
+	import { isFileOpen } from '../stores/fileStore'
+
+	isFileOpen.subscribe((value) => {
+		console.log(value)
+		if (value){
+			document.getElementById('editor')?.style.setProperty('display', 'flex');
+			document.getElementById('home')?.style.setProperty('display', 'none');
+
+			document.getElementById('editor')?.focus();
+		} else {
+			document.getElementById('home')?.style.setProperty('display', 'flex');
+			document.getElementById('editor')?.style.setProperty('display', 'none');
+		}
+	});
+
+	document.addEventListener('keydown', (event) => {
+		if (event.ctrlKey && event.key === 'n') {
+			event.preventDefault();
+			isFileOpen.set(isFileOpen.value ? false : true);
+		}
+	})
+</script>

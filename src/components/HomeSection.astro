@@ -2,25 +2,10 @@
 
 ---
 
-<main class="text-center text-text h-full flex content-center justify-center flex-col flex-wrap">
+<main id="home" class="text-center text-text h-full flex content-center justify-center flex-col flex-wrap">
     <h1 class="text-5xl">Welcome to 
         <span class="inline-flex animate-text-gradient bg-gradient-to-r from-flamingo via-maroon to-text bg-[200%_auto] bg-clip-text text-transparent">
             Zenith
         </span>
     </h1>
 </main>
-
-<script>
-    import { $isFileLoaded } from "../pages/index.astro";
-    
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            const listener = $isFileLoaded.subscribe((value) => {
-                $isFileLoaded.set(!value);
-            })
-
-            $isFileLoaded.listen(listener)
-        }
-    });
-
-</script>

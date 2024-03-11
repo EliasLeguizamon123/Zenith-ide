@@ -24,11 +24,4 @@ import TextEditorSection from '../components/TextEditorSection.astro'
 			document.getElementById('editor')?.style.setProperty('display', 'none');
 		}
 	});
-
-	document.addEventListener('keydown', (event) => {
-		if (event.ctrlKey && event.key === 'n') {
-			event.preventDefault();
-			isFileOpen.set(isFileOpen.value ? false : true);
-		}
-	})
 </script>

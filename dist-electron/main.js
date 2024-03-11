@@ -1,48 +1,60 @@
-import * as p from "url";
-import { fileURLToPath as c } from "url";
-import { app as t, BrowserWindow as d, ipcMain as o } from "electron";
-import { exec as f } from "child_process";
-import * as i from "path";
-import { join as r } from "path";
-import * as u from "os";
-import * as h from "fs";
-const R = c(import.meta.url), s = i.dirname(R), _ = {
+import * as url from "url";
+import { fileURLToPath } from "url";
+import { app, BrowserWindow, ipcMain } from "electron";
+import { exec } from "child_process";
+import * as path from "path";
+import { join } from "path";
+import * as os from "os";
+import * as fs from "fs";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const ROOT_PATH = {
   // /dist
-  dist: r(s, "../.."),
+  dist: join(__dirname, "../.."),
   // /dist or /public
-  public: r(s, t.isPackaged ? "../.." : "../../../public")
-}, w = r(_.dist, "dist/index.html");
-t.whenReady().then(() => {
-  const e = new d({
+  public: join(__dirname, app.isPackaged ? "../.." : "../../../public")
+};
+const indexHtml = join(ROOT_PATH.dist, "dist/index.html");
+app.whenReady().then(() => {
+  const win = new BrowserWindow({
     title: "Main window",
-    frame: !1,
-    transparent: !1,
+    frame: false,
+    transparent: false,
     minHeight: 600,
     minWidth: 800,
     webPreferences: {
-      preload: p.fileURLToPath(new URL("preload.mjs", import.meta.url)),
-      nodeIntegration: !0,
-      contextIsolation: !0
+      preload: url.fileURLToPath(new URL("preload.mjs", import.meta.url)),
+      nodeIntegration: true,
+      contextIsolation: true
     }
   });
-  process.env.VITE_DEV_SERVER_URL ? e.loadURL(process.env.VITE_DEV_SERVER_URL) : e.loadFile(w), o.on("closeApp", () => {
-    t.quit();
-  }), o.on("minimizeApp", () => {
-    e.minimize();
-  }), o.on("setFullScreen", () => {
-    e.setFullScreen(!e.isFullScreen());
-  }), E();
+  if (process.env.VITE_DEV_SERVER_URL) {
+    win.loadURL(process.env.VITE_DEV_SERVER_URL);
+  } else {
+    win.loadFile(indexHtml);
+  }
+  ipcMain.on("closeApp", () => {
+    app.quit();
+  });
+  ipcMain.on("minimizeApp", () => {
+    win.minimize();
+  });
+  ipcMain.on("setFullScreen", () => {
+    win.setFullScreen(!win.isFullScreen());
+  });
+  checkFolders();
 });
-const E = async () => {
-  f("ls -la", (e, l, F) => {
-    if (e) {
-      console.error(e);
+const checkFolders = async () => {
+  exec("ls -la", (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
       return;
     }
-    const a = i.join(u.homedir(), "Desktop"), m = i.join(a, "carpeta.txt");
-    h.writeFile(m, l, (n) => {
-      if (n) {
-        console.error(n);
+    const desktopPath = path.join(os.homedir(), "Desktop");
+    const filepath = path.join(desktopPath, "carpeta.txt");
+    fs.writeFile(filepath, stdout, (err2) => {
+      if (err2) {
+        console.error(err2);
         return;
       }
       console.log("File created");
@@ -50,5 +62,5 @@ const E = async () => {
   });
 };
 export {
-  _ as ROOT_PATH
+  ROOT_PATH
 };

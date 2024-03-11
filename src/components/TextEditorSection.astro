@@ -63,13 +63,19 @@ export const $content = atom('');
             })
 
             monaco.editor.setTheme('cat')
-            setTimeout(() => {
-                if (editor) {
-                    editor.focus();
-                }
-            }, 1000);
+            
         } else {
             monaco.editor.getModels().forEach(model => model.dispose());
         }
     });
+</script>
+<script>
+    import { isFileOpen } from '../stores/fileStore'
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            isFileOpen.set(false);
+        }
+    })
 </script>

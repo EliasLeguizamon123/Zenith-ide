@@ -2731,6 +2731,11 @@ hosted-git-info@^4.1.0:
   dependencies:
     lru-cache "^6.0.0"
 
+hotkeypad@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/hotkeypad/-/hotkeypad-0.1.1.tgz#95347d6aeeba834409e35492bda05796a79364c9"
+  integrity sha512-v8e9aByI1ReBX30bL/+dHQwsg+UGZaU4WXEWv72DG74h7fSToUm0udXam5tDCns4NsmWLXKzAL3Rjd9FfTjGXw==
+
 html-escaper@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-3.0.3.tgz#4d336674652beb1dcbc29ef6b6ba7f6be6fdfed6"

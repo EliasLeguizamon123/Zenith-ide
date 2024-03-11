@@ -1,1 +1,9 @@
-"use strict";const e=require("electron"),n={closeApp:()=>e.ipcRenderer.send("closeApp"),minimizeApp:()=>e.ipcRenderer.send("minimizeApp"),setFullScreen:()=>e.ipcRenderer.send("setFullScreen")};e.contextBridge.exposeInMainWorld("api",n);e.contextBridge.exposeInMainWorld("ipcRenderer",e.ipcRenderer);
+"use strict";
+const electron = require("electron");
+const api = {
+  closeApp: () => electron.ipcRenderer.send("closeApp"),
+  minimizeApp: () => electron.ipcRenderer.send("minimizeApp"),
+  setFullScreen: () => electron.ipcRenderer.send("setFullScreen")
+};
+electron.contextBridge.exposeInMainWorld("api", api);
+electron.contextBridge.exposeInMainWorld("ipcRenderer", electron.ipcRenderer);

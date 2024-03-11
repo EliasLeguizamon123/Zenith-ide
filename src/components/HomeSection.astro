@@ -10,7 +10,17 @@ import CodeText  from './CodeText.astro'
     </h1>
     <div class="text-center select-none">
         <p class="cursor-default">To start with new file just press <CodeText>ctrl</CodeText> + <CodeText>n</CodeText></p>
-        <p class="cursor-default">To open existing file just press <CodeText>ctrl</CodeText> + <CodeText>o</CodeText></p>
         <p class="cursor-default">To show all shortcuts just press <CodeText>ctrl</CodeText> + <CodeText>k</CodeText></p>
     </div>
 </main>
+
+<script>
+    import { isFileOpen } from '../stores/fileStore'
+
+    document.addEventListener('keydown', (event) => {
+		if (event.ctrlKey && event.key === 'n') {
+			event.preventDefault();
+			isFileOpen.set(true);
+		}
+	})
+</script>

@@ -13,7 +13,6 @@ import TextEditorSection from '../components/TextEditorSection.astro'
 	import { isFileOpen } from '../stores/fileStore'
 
 	isFileOpen.subscribe((value) => {
-		console.log(value)
 		if (value){
 			document.getElementById('editor')?.style.setProperty('display', 'flex');
 			document.getElementById('home')?.style.setProperty('display', 'none');

@@ -1,11 +1,8 @@
 import * as url from "url";
 import { fileURLToPath } from "url";
-import { app, BrowserWindow, ipcMain } from "electron";
-import { exec } from "child_process";
 import * as path from "path";
 import { join } from "path";
-import * as os from "os";
-import * as fs from "fs";
+import { app, BrowserWindow, ipcMain, dialog } from "electron";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT_PATH = {
@@ -19,7 +16,7 @@ app.whenReady().then(() => {
   const win = new BrowserWindow({
     title: "Main window",
     frame: false,
-    transparent: false,
+    transparent: true,
     minHeight: 600,
     minWidth: 800,
     webPreferences: {
@@ -42,25 +39,10 @@ app.whenReady().then(() => {
   ipcMain.on("setFullScreen", () => {
     win.setFullScreen(!win.isFullScreen());
   });
-  checkFolders();
 });
-const checkFolders = async () => {
-  exec("ls -la", (err, stdout, stderr) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    const desktopPath = path.join(os.homedir(), "Desktop");
-    const filepath = path.join(desktopPath, "carpeta.txt");
-    fs.writeFile(filepath, stdout, (err2) => {
-      if (err2) {
-        console.error(err2);
-        return;
-      }
-      console.log("File created");
-    });
-  });
-};
+ipcMain.on("saveFile", () => {
+  dialog.showOpenDialog({ properties: ["openFile", "multiSelections"] });
+});
 export {
   ROOT_PATH
 };

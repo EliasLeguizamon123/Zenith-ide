@@ -2,8 +2,10 @@
 import { atom } from 'nanostores'
 
 export const $content = atom('');
+
+const fileName = 'untitled file'
 ---
-<div id="editor"  class="hidden w-full h-[94vh] bg-base" />
+<div id="editor"  class="hidden w-full h-[90vh] bg-base" />
 
 <script>
     import { isFileOpen } from '../stores/fileStore'
@@ -34,7 +36,6 @@ export const $content = atom('');
     }
     isFileOpen.subscribe((value) => {
         const editor = document.getElementById('editor') as HTMLDivElement;
-
         if (value){
 
             monaco.editor?.create(editor, {
@@ -63,11 +64,25 @@ export const $content = atom('');
             })
 
             monaco.editor.setTheme('cat')
+
+            // Save file in dist with ctrl + s
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 's' && (event.ctrlKey || event.metaKey)) {
+                    event.preventDefault();
+                    const content = monaco.editor.getModels()[0]?.getValue();
+                    const element = document.createElement("a");
+                    const file = new Blob([content || ''], {type: "text/plain"});
+                    element.href = URL.createObjectURL(file);
+                    element.download = "untitled file"; // TODO: get file name
+                    element.click();
+                }
+            })
             
         } else {
             monaco.editor.getModels().forEach(model => model.dispose());
         }
     });
+
 </script>
 <script>
     import { isFileOpen } from '../stores/fileStore'

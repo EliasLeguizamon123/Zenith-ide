@@ -1,7 +1,12 @@
-
+---
+    const fileName = 'untitled file'
+---
 <header id="close-bar" class="flex text-text justify-end border-b-1 h-8 bg-mantle border-crust">
     <div class="flex justify-center size-full">
         <slot />
+        <p id="name" class="pt-[2px] hidden">
+            {fileName || ''}
+        </p>
     </div>
     <div class="flex absolute">
         <button id="minimizeButton" class="w-8 h-8 cursor-pointer flex justify-center items-center hover:bg-surface">
@@ -27,6 +32,8 @@
 </style>
 
 <script>
+    import { isFileOpen } from '../stores/fileStore'
+
    const closeButton = document.getElementById('closeButton') as HTMLButtonElement;
 
    closeButton.addEventListener('click', async() => {
@@ -43,5 +50,13 @@
 
     fullScreenButton.addEventListener('click', async() => {
             await window.api.setFullScreen()
+    })
+
+    isFileOpen.subscribe((value) => {
+        if (value) {
+            document.getElementById('name')?.classList.remove('hidden');
+        } else {
+            document.getElementById('name')?.classList.add('hidden');
+        }
     })
 </script>
